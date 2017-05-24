@@ -1,5 +1,6 @@
 # MailSender
-Send free e-mail
+
+Send free e-mail trought your PC
 
 You can use MailSender to send hundred mails for free everyday.
 
