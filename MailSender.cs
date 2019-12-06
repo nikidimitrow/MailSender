@@ -18,16 +18,12 @@ namespace MailSender
 
         public Form1()
         {
-            InitializeComponent();
-
-          
-
+            InitializeComponent();  
             passwordTextBox.PasswordChar = '*';
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         public void textBox2_MouseClick(object sender, MouseEventArgs e)
@@ -52,9 +48,7 @@ namespace MailSender
             timer1.Enabled = true;
             timer1.Interval = Convert.ToInt16(comboBox1.GetItemText("900")) * 1000;
             timer1.Interval = 900000;
-          //  timer1.Interval = 600;
-
-
+        
             richTextBox2.AppendText("sending interval set to : " + timer1.Interval.ToString()+Environment.NewLine);
         }
 
@@ -74,19 +68,12 @@ namespace MailSender
             int counter = -1;
             int flag = 0;
             try {
-                // timer1.Enabled = false;
-                string Subject = textBox1.Text;
-               
+                string Subject = textBox1.Text;      
                 string body;
                
-                //var logFile = File.ReadAllLines(textBox2.Text);//eto
-                //someFiles = new List<string>(logFile);//tezi dve linii dobavih
                 foreach (string  item in someFiles)//initialize the list from file before first use from the upper two lines
                 {
                     counter++;
-                   
-                    // byte[] bytes1 = Encoding.Default.GetBytes(item);
-                    //String lin1 = Encoding.UTF8.GetString(bytes1);
                     String lin1 = item;
 
                     if (!item.Contains("Processed"))
@@ -95,16 +82,13 @@ namespace MailSender
                         line = lin1;
                         break;
                     }
-
                 }
                 if (flag == 1)
                 {
                     string[] arrayList = line.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                //MessageBox.Show(arrayList[1]);
 
-                // Formata na imeto e slednata: ime; mail; grad;adress
-
-
+                // The form is as follow: name, mail, city, adress
+                
                 Subject = textBox1.Text.Replace("#", arrayList[0]);
                 body = richTextBox1.Text;
                 body = body.Replace("#", arrayList[0]);
@@ -112,8 +96,6 @@ namespace MailSender
                 body = body.Replace("^", arrayList[3]);
               
                     SmtpClient client = new SmtpClient();
-                    // client.Port = Convert.ToInt32(textBox1.Text);
-
                     client.Host = HostTextBox.Text;
                     client.Port = Convert.ToInt32(PortTextBox.Text);
                     client.EnableSsl = false;
@@ -125,7 +107,6 @@ namespace MailSender
                     arrayList[1].Replace("\n", "");
                     arrayList[1].Replace(" ", "");
                     arrayList[1].Replace("\r", "");
-
 
                     MailMessage mail = new MailMessage(Convert.ToString(fromMailTextBox.Text), arrayList[1], Subject, body);
                     mail.BodyEncoding = UTF8Encoding.UTF8;
@@ -143,7 +124,6 @@ namespace MailSender
                     foreach (var l in someFiles)
                     {
                         sb.AppendLine(l);
-
                     }
                     File.AppendAllText( "log.txt", sb.ToString());
                     Environment.Exit(0);
@@ -153,14 +133,11 @@ namespace MailSender
             {
                 richTextBox2.AppendText(ex.ToString() + Environment.NewLine);
                 someFiles[counter] = line + "; Processed->error";
-
             }
-
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-
             
         }
     }
